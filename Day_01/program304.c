@@ -1,5 +1,6 @@
 #include<stdio.h>
 
+#pragma pack(1)
 struct node
 {
     int data;
