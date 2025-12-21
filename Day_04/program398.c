@@ -37,6 +37,7 @@ void InsertFirst(PPNODE first,int no)
 void InsertLast(PPNODE first,int no)
 {
     PNODE newn = NULL;
+    PNODE temp = NULL;
 
     newn = (PNODE)malloc(sizeof(NODE));
 
@@ -47,6 +48,19 @@ void InsertLast(PPNODE first,int no)
     if(*first == NULL)
     {
         *first = newn;
+    }
+    else
+    {
+        temp = *first;
+
+        while (temp ->next != NULL)
+        {
+            temp = temp -> next;
+
+        }
+        
+        temp -> next = newn;
+        newn -> prev = temp;      // $ temp -> next -> prev = temp
     }
 }
 
@@ -97,7 +111,16 @@ int main()
     Display(head);
 
     iRet = Count(head);
-    printf("Number of node are : %d",iRet);
+    printf("Number of node are : %d\n",iRet);
+
+    InsertLast(&head,101);
+    InsertLast(&head,111);
+    InsertLast(&head,121);
+
+    Display(head);
+
+    iRet = Count(head);
+    printf("Number of node are : %d\n",iRet);
     
     return 0;
 }
