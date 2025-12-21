@@ -59,9 +59,6 @@ void InsertLast(PPNODE first, int no)
     }
 }
 
-void InsertAtPos(PPNODE first, int no, int pos)
-{}
-
 void DeleteFirst(PPNODE first)
 {
     PNODE temp = NULL;
@@ -112,9 +109,6 @@ void DeleteLast(PPNODE first)
     } 
 }
 
-void DeleteAtPos(PPNODE first,int pos)
-{}
-
 void Display(PNODE first)
 {
     while (first != NULL)
@@ -135,6 +129,55 @@ int Count(PNODE first)
         first = first ->next;
     }
     return iCount;
+}
+
+void InsertAtPos(PPNODE first, int no, int pos)
+{
+    int iSize = 0;
+
+    iSize = Count(*first);
+
+    if ((pos < 1) || (pos > iSize + 1))    // Filter
+    {
+        printf("Invaild position \n");
+        return;
+    }
+    if (pos == 1)
+    {
+        InsertFirst(first,no);
+    }
+    else if (pos == iSize + 1)
+    {
+        InsertLast(first,no);
+    }
+    else
+    {
+
+    }
+}
+
+void DeleteAtPos(PPNODE first,int pos)
+{
+    int iSize = 0;
+    iSize = Count(*first);
+
+    if ((pos < 1) || (pos > iSize))    // Filter
+    {
+        printf("Invaild position\n");
+        return;
+    }
+    if (pos == 1)
+    {
+        DeleteFirst(first);
+    }
+    else if (pos == iSize)
+    {
+        DeleteLast(first);
+    }
+    else
+    {
+        
+    }
 }
 
 int main()
@@ -168,6 +211,13 @@ int main()
     printf("Number of nodes are : %d\n",iRet);
 
     DeleteLast(&head);
+
+    Display(head);
+    iRet = Count(head);
+
+    printf("Number of nodes are : %d\n",iRet);
+
+    InsertAtPos(&head,105,5);
 
     Display(head);
     iRet = Count(head);

@@ -59,9 +59,6 @@ void InsertLast(PPNODE first, int no)
     }
 }
 
-void InsertAtPos(PPNODE first, int no, int pos)
-{}
-
 void DeleteFirst(PPNODE first)
 {
     PNODE temp = NULL;
@@ -112,9 +109,6 @@ void DeleteLast(PPNODE first)
     } 
 }
 
-void DeleteAtPos(PPNODE first,int pos)
-{}
-
 void Display(PNODE first)
 {
     while (first != NULL)
@@ -135,6 +129,87 @@ int Count(PNODE first)
         first = first ->next;
     }
     return iCount;
+}
+
+void InsertAtPos(PPNODE first, int no, int pos)
+{
+    PNODE newn = NULL;
+    PNODE temp = NULL;
+
+    int iCnt = 0;
+    int iSize = 0;
+    iSize = Count(*first);
+
+    if ((pos < 1) || (pos > iSize + 1))    // Filter
+    {
+        printf("Invaild position \n");
+        return;
+    }
+    if (pos == 1)
+    {
+        InsertFirst(first,no);
+    }
+    else if (pos == iSize + 1)
+    {
+        InsertLast(first,no);
+    }
+    else
+    {
+        newn = (PNODE)malloc(sizeof(NODE));
+
+        newn->data = no;
+        newn->next = NULL;
+
+        temp = *first;
+
+        for(iCnt = 1; iCnt < pos-1; iCnt++)
+        {
+            temp = temp ->next;
+        }
+        
+        newn->next = temp->next;
+        temp->next = newn;
+    }
+}
+
+void DeleteAtPos(PPNODE first,int pos)
+{
+
+    int iSize = 0;
+    int iCnt = 0;
+
+    PNODE temp = NULL;
+    PNODE target = NULL;
+
+    iSize = Count(*first);
+
+    if ((pos < 1) || (pos > iSize))    // Filter
+    {
+        printf("Invaild position\n");
+        return;
+    }
+    if (pos == 1)
+    {
+        DeleteFirst(first);
+    }
+    else if (pos == iSize)
+    {
+        DeleteLast(first);
+    }
+    else
+    {
+        temp = *first;
+
+        for (iCnt = 1; iCnt < pos -1; iCnt++)
+        {
+            temp = temp->next;
+        }
+        
+        target = temp->next;
+
+        temp->next = target->next;  // 1
+        free(target);               // 2
+    }
 }
 
 int main()
@@ -168,6 +243,20 @@ int main()
     printf("Number of nodes are : %d\n",iRet);
 
     DeleteLast(&head);
+
+    Display(head);
+    iRet = Count(head);
+
+    printf("Number of nodes are : %d\n",iRet);
+
+    InsertAtPos(&head,105,5);
+
+    Display(head);
+    iRet = Count(head);
+
+    printf("Number of nodes are : %d\n",iRet);
+
+    DeleteAtPos(&head,3);
 
     Display(head);
     iRet = Count(head);
